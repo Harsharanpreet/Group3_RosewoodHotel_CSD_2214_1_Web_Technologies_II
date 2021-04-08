@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+  <meta charset="UTF-8">	
+	<title>RoseWood Hotel - Cart</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile.structure-1.0.1.css" />
+	<link rel="apple-touch-icon" href="images/launch_icon_57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="images/launch_icon_72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/launch_icon_114.png" />
+	<link rel="stylesheet" href="jquery.mobile-1.0.1.css" />
+	<link rel="stylesheet" href="custom.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.0.1.min.js"></script>
+	<script src="js/project.js"></script>
+</head> 
+
+<body> 
+<div data-role="page" id="home" data-theme="c">
+
+	<div data-role="content">
+
+	<div class="choice_list"> 
+	<h3> My Cart </h3>
+	
+	<ul data-role="listview" data-inset="true" data-input="#divOfPs-input" class="elements" data-filter="true" id="products">
+	</ul>
+  <div data-role="controlgroup" data-type="horizontal">
+	<h1 id="totalcartvalue">Total Cart Value:</h1>
+    <a href="product.html" rel="external" data-role="button" data-theme="b">Product List</a>
+	<a href="cart.html" rel="external" data-role="button" id="emptycart" data-theme="e">Empty Cart</a>
+	
+    
+    </div>
+	</div>
+
+</div><!-- /page -->
+</body>
+</html>
+<script>
+	$(document).ready(function() {
+		mycart1 = JSON.parse(sessionStorage.getItem("mycart"));
+		cartvalue=0;
+		for(i=0;i<mycart1.length;i++)
+		{
+			var j=mycart1[i];
+			$("#products").append('<li><a href="product-details.html?id=0" rel="external" data-transition="slidedown"> <img src="'+roompics[j]+'"/> <h3>'+roomnames[j]+' Rent :$'+rent[j]+'</h3></a></li>');
+			cartvalue+=rent[j];
+		}
+		$("#totalcartvalue").text("Total Cart Value: $"+cartvalue);
+		$('#products').listview('refresh');
+
+		$("#emptycart").click(function(){
+			mycart1=[];
+			sessionStorage.setItem("mycart", JSON.stringify(mycart1));
+			alert(mycart1.length);
+		});
+		
+	});
+
+
+
+	</script>
+	
